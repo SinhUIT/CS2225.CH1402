@@ -40,9 +40,15 @@ def preprocess_image(image_path, resize=False):
 def get_plate(model, image_path, Dmax=608, Dmin=608):
     vehicle = preprocess_image(image_path)
     ratio = float(max(vehicle.shape[:2])) / min(vehicle.shape[:2])
-    side = int(ratio * Dmin)
-    bound_dim = min(side, Dmax)
-    _, LpImg, _, cor = detect_lp(model, vehicle, bound_dim, lp_threshold=0.5)
+    for j in range(0, 50):
+        try:
+            Dmin = Dmin + j
+            side = int(ratio * Dmin)
+            bound_dim = min(side, Dmax)
+            _, LpImg, _, cor = detect_lp(model, vehicle, bound_dim, lp_threshold=0.5)
+            break
+        except AssertionError:
+            pass
     return vehicle, LpImg, cor
 
 # test_image_path = "Plate_examples/germany_car_plate.jpg"

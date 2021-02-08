@@ -101,8 +101,7 @@ class MainWindowLogic(Ui_MainWindow):
                 (x, y, w, h) = cv2.boundingRect(c)
                 ratio = h / w
                 if 1 <= ratio <= 3.5:  # Only select contour with defined ratio
-                    if h / plate_image.shape[
-                        0] >= 0.5:  # Select contour which has the height larger than 50% of the plate
+                    if h / plate_image.shape[0] >= 0.5:  # Select contour which has the height larger than 50% of the plate
                         # Draw bounding box arroung digit number
                         cv2.rectangle(test_roi, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
